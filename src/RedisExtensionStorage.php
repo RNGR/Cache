@@ -18,6 +18,14 @@ class RedisExtensionStorage implements StorageInterface
     protected $prefix = '';
 
     /**
+     * RedisExtensionStorage constructor.
+     */
+    public function __construct()
+    {
+        $this->redis = new \Redis;
+    }
+
+    /**
      * Connect
      */
     public function connect()
