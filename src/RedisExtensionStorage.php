@@ -19,10 +19,12 @@ class RedisExtensionStorage implements StorageInterface
 
     /**
      * RedisExtensionStorage constructor.
+     * @param string $prefix
      */
-    public function __construct()
+    public function __construct($prefix = '')
     {
         $this->redis = new \Redis;
+        $this->setPrefix($prefix);
     }
 
     /**
