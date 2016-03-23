@@ -30,7 +30,7 @@ class RedisExtensionStorage implements StorageInterface
      */
     public function connect()
     {
-        call_user_func_array($this->redis, func_get_args());
+        return call_user_func_array([$this->redis, 'connect'], func_get_args());
     }
 
     /**
@@ -38,7 +38,7 @@ class RedisExtensionStorage implements StorageInterface
      */
     public function read($key)
     {
-        $value = $this->redis->get($key);
+        $value = $this->redis->get($this->prefix.$key);
         if ($value) {
             return is_numeric($value) ? $value : unserialize($value);
         }
@@ -49,7 +49,7 @@ class RedisExtensionStorage implements StorageInterface
      */
     public function put($key, $value, $seconds)
     {
-        $this->redis->set($key, is_numeric($value) ? $value : serialize($value), $seconds);
+        $this->redis->set($this->prefix.$key, is_numeric($value) ? $value : serialize($value), $seconds);
     }
 
     /**
@@ -57,7 +57,7 @@ class RedisExtensionStorage implements StorageInterface
      */
     public function delete($key)
     {
-        $this->redis->delete($key);
+        $this->redis->delete($this->prefix.$key);
 
         return true;
     }
@@ -75,11 +75,23 @@ class RedisExtensionStorage implements StorageInterface
      */
     public function getPrefix()
     {
-        return '';
+        return $this->prefix;
     }
 
     public function setPrefix($prefix)
     {
         $this->prefix = !empty($prefix) ? $prefix.':' : '';
+    }
+
+    /**
+     * Pass missing methods to Redis.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return call_user_func_array([$this->redis, $method], $parameters);
     }
 }
