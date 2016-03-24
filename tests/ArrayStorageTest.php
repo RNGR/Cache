@@ -19,5 +19,10 @@ class ArrayStorageTest extends PHPUnit_Framework_TestCase
 
         $storage->flush();
         $this->assertNull($storage->read('name'));
+
+        $this->assertSame(1, $storage->increment('count'));
+        $this->assertSame(2, $storage->increment('count'));
+        $this->assertSame(1, $storage->decrement('count'));
+        $this->assertSame(0, $storage->decrement('count'));
     }
 }

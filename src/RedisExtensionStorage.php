@@ -55,6 +55,21 @@ class RedisExtensionStorage implements StorageInterface
     }
 
     /**
+     * @inheritdoc
+     */
+    public function increment($key, $value = 1)
+    {
+        return $this->redis->incrBy($key, $value);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function decrement($key, $value = 1)
+    {
+        return $this->redis->decrBy($key, $value);
+    }
+    /**
      * @inheritDoc
      */
     public function delete($key)

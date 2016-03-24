@@ -23,6 +23,24 @@ interface StorageInterface
     public function put($key, $value, $seconds);
 
     /**
+     * Increment value of a item
+     *
+     * @param  string  $key
+     * @param int $value
+     * @return bool
+     */
+    public function increment($key, $value);
+
+    /**
+     * Decrement value of a item
+     *
+     * @param  string  $key
+     * @param int $value
+     * @return bool
+     */
+    public function decrement($key, $value);
+
+    /**
      * Remove an item from the cache by key.
      *
      * @param  string  $key

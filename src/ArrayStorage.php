@@ -30,6 +30,30 @@ class ArrayStorage implements StorageInterface
     }
 
     /**
+     * @inheritdoc
+     */
+    public function increment($key, $value = 1)
+    {
+        if (!array_key_exists($key, $this->storage)) {
+            $this->storage[$key] = 0;
+        }
+
+        return $this->storage[$key] += $value;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function decrement($key, $value = 1)
+    {
+        if (!array_key_exists($key, $this->storage)) {
+            $this->storage[$key] = 0;
+        }
+
+        return $this->storage[$key] += ($value * -1);
+    }
+
+    /**
      * @inheritDoc
      */
     public function delete($key)
