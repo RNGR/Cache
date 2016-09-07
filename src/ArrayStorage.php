@@ -34,11 +34,7 @@ class ArrayStorage implements StorageInterface
      */
     public function increment($key, $value = 1)
     {
-        if (!array_key_exists($key, $this->storage)) {
-            $this->storage[$key] = 0;
-        }
-
-        return $this->storage[$key] += $value;
+        return $this->incrementBy($key, $value);
     }
 
     /**
@@ -46,11 +42,16 @@ class ArrayStorage implements StorageInterface
      */
     public function decrement($key, $value = 1)
     {
+        return $this->incrementBy($key, ($value * -1));
+    }
+
+    protected function incrementBy($key, $value = 1)
+    {
         if (!array_key_exists($key, $this->storage)) {
             $this->storage[$key] = 0;
         }
 
-        return $this->storage[$key] += ($value * -1);
+        return $this->storage[$key] += $value;
     }
 
     /**

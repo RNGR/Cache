@@ -7,12 +7,14 @@ class RedisExtensionStorage implements StorageInterface
 {
     /**
      * Redis Object
+     *
      * @var \Redis
      */
     protected $redis;
 
     /**
      * Cache key prefix
+     *
      * @var string
      */
     protected $prefix = '';
@@ -105,6 +107,7 @@ class RedisExtensionStorage implements StorageInterface
      *
      * @param  string  $method
      * @param  array   $parameters
+     *
      * @return mixed
      */
     public function __call($method, $parameters)

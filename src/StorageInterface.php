@@ -8,6 +8,7 @@ interface StorageInterface
      * Read an item from cache by key.
      *
      * @param  string  $key
+     *
      * @return mixed
      */
     public function read($key);
@@ -18,6 +19,7 @@ interface StorageInterface
      * @param  string  $key
      * @param  mixed   $value
      * @param  int     $seconds
+     *
      * @return void
      */
     public function put($key, $value, $seconds);
@@ -27,7 +29,8 @@ interface StorageInterface
      *
      * @param  string  $key
      * @param int $value
-     * @return bool
+     *
+     * @return int incremented value
      */
     public function increment($key, $value);
 
@@ -36,7 +39,8 @@ interface StorageInterface
      *
      * @param  string  $key
      * @param int $value
-     * @return bool
+     *
+     * @return int decremented value
      */
     public function decrement($key, $value);
 
@@ -44,6 +48,7 @@ interface StorageInterface
      * Remove an item from the cache by key.
      *
      * @param  string  $key
+     *
      * @return bool
      */
     public function delete($key);

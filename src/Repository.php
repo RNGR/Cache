@@ -2,14 +2,14 @@
 
 namespace RNGR\Cache;
 
-
 use Closure;
 
 class Repository implements RepositoryInterface
 {
     /**
      * Cache Storage Object
-     * @var \Directus\Cache\StorageInterface
+     *
+     * @var StorageInterface
      */
     protected $storage = null;
 
@@ -88,6 +88,7 @@ class Repository implements RepositoryInterface
      *
      * @param  string  $method
      * @param  array   $parameters
+     *
      * @return mixed
      */
     public function __call($method, $parameters)
