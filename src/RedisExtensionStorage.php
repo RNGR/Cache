@@ -19,20 +19,14 @@ class RedisExtensionStorage implements StorageInterface
 
     /**
      * RedisExtensionStorage constructor.
+     *
+     * @param \Redis $redis
      * @param string $prefix
      */
-    public function __construct($prefix = '')
+    public function __construct($redis, $prefix = '')
     {
-        $this->redis = new \Redis;
+        $this->redis = $redis;
         $this->setPrefix($prefix);
-    }
-
-    /**
-     * Connect
-     */
-    public function connect()
-    {
-        return call_user_func_array([$this->redis, 'connect'], func_get_args());
     }
 
     /**
@@ -69,6 +63,7 @@ class RedisExtensionStorage implements StorageInterface
     {
         return $this->redis->decrBy($key, $value);
     }
+
     /**
      * @inheritDoc
      */
@@ -95,6 +90,11 @@ class RedisExtensionStorage implements StorageInterface
         return $this->prefix;
     }
 
+    /**
+     * Set key prefix
+     *
+     * @param $prefix
+     */
     public function setPrefix($prefix)
     {
         $this->prefix = !empty($prefix) ? $prefix.':' : '';

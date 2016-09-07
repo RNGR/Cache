@@ -10,8 +10,12 @@ class RepositoryTest extends PHPUnit_Framework_TestCase
         $storage = new ArrayStorage();
         $repository = new Repository($storage);
 
+        $this->assertFalse($repository->has('name'));
         $repository->put('name', 'Bob', 0);
         $this->assertSame('Bob', $repository->read('name'));
+        $this->assertSame('Bob', $repository->readOrPut('name', 0, function() {
+            return 123;
+        }));
 
         $repository->delete('name');
         $this->assertNull($repository->read('name'));
