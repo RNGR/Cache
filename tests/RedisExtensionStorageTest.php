@@ -7,8 +7,11 @@ class RedisExtensionStorageTest extends PHPUnit_Framework_TestCase
     public function testStorage()
     {
         $redis = $this->getMockBuilder('Redis')
-            ->setMethods(array('get', 'set', 'flushDB', 'delete', 'decrBy', 'incrBy'))
+            ->setMethods(array('missingMethod', 'get', 'set', 'flushDB', 'delete', 'decrBy', 'incrBy'))
             ->getMock();
+
+        $redis->expects($this->once())
+            ->method('missingMethod');
 
         $redis->expects($this->at(0))
             ->method('get')
@@ -65,5 +68,7 @@ class RedisExtensionStorageTest extends PHPUnit_Framework_TestCase
 
         $storage->delete('city');
         $storage->flush();
+
+        $storage->missingMethod();
     }
 }
