@@ -10,10 +10,15 @@ Simple PHP Cache library
 ## Usage
 
 ```php
-$redis = new \Redis();
-$redis->connect('127.0.0.1', 6379);
+// Array will not persist
+// it will be removed after execution
+$storage = new ArrayStorage();
 
-$storage = new RedisExtensionStorage($redis, 'prefix');
+// Or using the Redis PHP extension
+// $redis = new \Redis();
+// $redis->connect('127.0.0.1', 6379);
+// $storage = new RedisExtensionStorage($redis, 'prefix');
+
 $repository = new Repository($storage);
 
 // set value
